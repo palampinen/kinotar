@@ -1,0 +1,42 @@
+<ion-view view-title="Elokuvissa {{selectedDate.name}}">
+ <ion-nav-buttons side="right">
+    
+    <a class="button button-icon icon ion-android-calendar calendar darker" href ng-click=""></a>
+    <select class="hiddenSelect" ng-options="i as day.name for (i,day) in days" ng-model="movieDate" ng-change="setDate(movieDate)"></select> 
+  </ion-nav-buttons>
+  <ion-content overflow-scroll="true">
+
+    <div class="list movie-select ">
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Valitse teatteri
+        </div>
+      	<select ng-options="item.ID as item.Name for item in areas" ng-model="selected" ng-change="getMovies(selected)"></select>
+      </label>
+    </div>
+
+    <span class="loader" ng-show="loading" ng-class="{loading:loading}">
+      <span class="indicator"></span>
+    </span>
+
+    <div class="tooltip" ng-class="{ready:ready}" ng-if="!selected"> <!-- ng-if="!selected" -->
+        <i class="icon ion-android-checkmark-circle"></i> Aloita valitsemalla haluamasi Finnkinon elokuvateatteri
+    </div>
+
+    <ion-list class="movie-list">
+      <ion-item "item-thumbnail" ng-repeat="(name,movie) in movies | orderBy:'imdb':true" ng-href="#/app/playlists/{{movie.data.EventID}}/{{selectedDate.date}}/{{movie.imdbID}}">
+          <span class="img" style="background-image:url({{movie.image}})"></span>
+          
+          <span class="number" ng-if="movie.imdb">{{movie.imdb}} <i class="icon ion-android-star"></i></span>
+
+          <h2>{{movie.data.Title}}</h2>
+
+          <p class="showtimes royal" >
+           <i class="icon ion-android-time"></i>
+           <span class="showtime" ng-repeat="show in movie.shows" ng-class="{past:show.past}"> {{show.time}}</span>
+          </p>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

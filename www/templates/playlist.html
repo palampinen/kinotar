@@ -1,0 +1,30 @@
+<ion-view view-title="{{movie.Title}}" >
+  <ion-nav-buttons side="right">
+    <a ng-show="play" class="button button-icon icon ion-ios-refresh-empty restart" href ng-click="restart()"></a>
+    <a class="button button-clear kino-icon" ng-if="imdbID" href ng-click="openLink('http://imdb.com/title/{{imdbID}}')" ><img src="img/imdb-icon.png" alt="Finnkino" /></a>
+    <a class="button button-clear kino-icon" ng-click="openLink('http://m.finnkino.fi/Event/{{eventID}}?area={{areaID}}&dt={{date}}')" target="_blank"><img src="img/finnkino-icon.png" alt="Finnkino" /></a>
+  </ion-nav-buttons>
+
+  <ion-content class="movie myFade" overflow-scroll="true" ng-class="{ready:ready}" >
+
+  	<div class="mainimg" style="background-image:url({{movie.Images.EventLargeImageLandscape}})" ng-class="{play:play}">
+      <span class="controls" ng-click="vidplay()">
+        <a href ng-show="!play" class="button button-icon icon "> <i class="ion-ios-play-outline"></i> </a>
+      </span>  
+
+      <video ng-show="play" id="video" class="vertical-middle" width="100%" controls ng-src="{{movie.Videos.EventVideo.Location}}" ></video>
+    </div>
+
+  	<h1 class="titlebox">{{movie.Title}}</h1>
+
+    <div class="padding intro">
+      <span class="right length"><i class="ion-android-time"></i> {{movie.LengthInMinutes}}min</span>
+      {{movie.Genres}}
+    </div>
+
+  	<p class="padding">{{movie.ShortSynopsis}}</p>
+
+
+
+  </ion-content>
+</ion-view>

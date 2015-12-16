@@ -1,0 +1,12 @@
+{
+  "name": "kinotar",
+  "app_id": "11933432",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
